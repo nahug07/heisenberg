@@ -5,10 +5,26 @@ import { getCharacters } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import { Fragment } from "react";
+import Paginado from "./Paginado";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allCharacters = useSelector((state) => state.characters);
+
+  //--Paginado--//
+  const [currentPage, setCurrentPage] = useState(1); // guardo en un estado local la página actual y la seteo en 1
+  const [charactersPerPage, setCharactersPerPage] = useState(6); // guardo en un estado cuantos personajes quiero por página
+  const indexOfLastCharacter = currentPage * charactersPerPage; //indice del último personaje (6)
+  const indexOfFirstCharacters = indexOfLastCharacter - charactersPerPage; // indice del primer personaje (0)
+  const currentCharacters = allCharacters.slice(
+    indexOfFirstCharacters,
+    indexOfLastCharacter
+  ); //agarro el array de todos los personajes y lo recorto desde el 1er personaje hasta el 6to
+
+  const paginado = (pageNumber) => {
+    //seteo la página en ese número de página
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     dispatch(getCharacters());
@@ -47,7 +63,12 @@ export default function Home() {
           <option value="created">Creados</option>
           <option value="api">Existente</option>
         </select>
-        {allCharacters?.map((el) => {
+        <Paginado
+          characterPerPage={charactersPerPage}
+          allCharacters={allCharacters.length}
+          paginado={paginado}
+        />
+        {currentCharacters?.map((el) => {
           return (
             <div>
               <Link to={"/home/" + el.id}>
