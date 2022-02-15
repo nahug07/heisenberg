@@ -11,3 +11,24 @@ export function getCharacters(){
         })
     }
 }
+
+export function filterCharactersByStatus(payload){
+    return {
+        type: 'FILTER_BY_STATUS',
+        payload
+    }
+}
+
+export function filterCreated(payload){
+    return {
+        type: 'FILTER_CREATED',
+        payload
+    }
+}
+
+export function orderByName(payload){
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}

@@ -1,17 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharacters } from "../actions";
+import { getCharacters, filterCharactersByStatus, filterCreated, orderByName } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import { Fragment } from "react";
 import Paginado from "./Paginado";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allCharacters = useSelector((state) => state.characters);
 
-  //--Paginado--//
+ // --> Paginado <-- //
   const [currentPage, setCurrentPage] = useState(1); // guardo en un estado local la página actual y la seteo en 1
   const [charactersPerPage, setCharactersPerPage] = useState(6); // guardo en un estado cuantos personajes quiero por página
   const indexOfLastCharacter = currentPage * charactersPerPage; //indice del último personaje (6)
@@ -25,7 +24,7 @@ export default function Home() {
     //seteo la página en ese número de página
     setCurrentPage(pageNumber);
   };
-
+ //------------------------------------------------------//
   useEffect(() => {
     dispatch(getCharacters());
   }, [dispatch]);
@@ -34,6 +33,25 @@ export default function Home() {
     e.preventDefault();
     dispatch(getCharacters());
   }
+ //-------------------------------------------------------//
+ // --> Filtrado <-- //
+  function handleFilterStatus(e){
+    dispatch(filterCharactersByStatus(e.target.value))
+  }
+  function handleFilterCreated(e){
+    dispatch(filterCreated(e.target.value))
+  }
+
+ // --> Ordenamiento <-- //
+  const [orden, setOrden] = useState('')
+  function handleSort(e){
+    e.preventDefault();
+    dispatch(orderByName(e.target.value))
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`);
+  }
+
+
 
   return (
     <div>
@@ -47,18 +65,18 @@ export default function Home() {
         Cargar todos los personajes
       </button>
       <div>
-        <select>
+        <select onChange={e => handleSort(e)}>
           <option value="asc">Ascendente</option>
           <option value="desc">Descendente</option>
         </select>
-        <select>
+        <select onChange={e => handleFilterStatus(e)}>
           <option value="All">Todos</option>
           <option value="Alive">Vivo</option>
           <option value="Deceased">Muerto</option>
           <option value="Unknown">Desconocido</option>
           <option value="Presumed dead">Probablemente muerto</option>
         </select>
-        <select>
+        <select onChange={e => handleFilterCreated(e)}>
           <option value="All">Todos</option>
           <option value="created">Creados</option>
           <option value="api">Existente</option>
