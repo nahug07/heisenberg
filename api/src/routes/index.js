@@ -69,6 +69,7 @@ router.get("/characters", async (req, res) => {
   }
 });
 
+
 //BUSCAR OCUPACIONES
 router.get("/occupations", async (req, res) => {
   const occupationsApi = await axios.get(
