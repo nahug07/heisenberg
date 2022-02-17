@@ -94,7 +94,7 @@ export default function Home() {
               <Link to={"/home/" + el.id}>
                 <Card
                   name={el.name}
-                  image={el.img}
+                  image={el.img ? el.img : el.image}
                   nickname={el.nickname}
                   key={el.id}
                 />
