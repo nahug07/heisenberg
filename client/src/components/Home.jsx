@@ -13,7 +13,7 @@ export default function Home() {
 
  // --> Paginado <-- //
   const [currentPage, setCurrentPage] = useState(1); // guardo en un estado local la página actual y la seteo en 1
-  const [charactersPerPage, setCharactersPerPage] = useState(6); // guardo en un estado cuantos personajes quiero por página
+  const [charactersPerPage/* , setCharactersPerPage */] = useState(6); // guardo en un estado cuantos personajes quiero por página
   const indexOfLastCharacter = currentPage * charactersPerPage; //indice del último personaje (6)
   const indexOfFirstCharacters = indexOfLastCharacter - charactersPerPage; // indice del primer personaje (0)
   const currentCharacters = allCharacters.slice(
@@ -90,11 +90,11 @@ export default function Home() {
         <SearchBar/>
         {currentCharacters?.map((el) => {
           return (
-            <div>
+            <div key={el.name}>
               <Link to={"/home/" + el.id}>
                 <Card
                   name={el.name}
-                  image={el.img ? el.img : el.image}
+                  img={el.img}
                   nickname={el.nickname}
                   key={el.id}
                 />

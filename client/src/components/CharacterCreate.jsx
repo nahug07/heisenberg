@@ -1,14 +1,180 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getOccupations, postCharacter } from "../actions"; 
+import { useDispatch, useSelector } from "react-redux";
+
+
+export default function CharacterCreate(){
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const occupations = useSelector((state) => state.occupations)
+
+    const [input, setInput] = useState({
+        name: "",
+        nickname: "",
+        birthday: "",
+        status: "",
+        img:"",
+        occupation: []
+    })
+    useEffect((c) => {
+        dispatch(getOccupations())
+    }, [dispatch])
+
+    function handleChange (e){
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
+        console.log(input);
+    }
+
+    function handleCheck(e){
+        if(e.target.checked){
+            setInput({
+                ...input,
+                status: e.target.value
+            })
+        }
+    }
+
+    function handleSelect(e){
+        setInput({
+            ...input,
+            occupation: [...input.occupation, e.target.value]
+        })
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        console.log(input);
+        dispatch(postCharacter(input));
+        alert("Personaje creado!!");
+        setInput({
+            name: " ",
+            nickname: '',
+            birthday: '',
+            status: '',
+            img:'',
+            occupation: []
+        })
+        navigate('/home')
+    }
+
+    return(
+        <div>
+            <Link to='/home'><button>Volver</button></Link>
+            <h1>Crea tu personaje!</h1>
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <div>
+                    <label>Nombre:</label>
+                    <input
+                        type="text"
+                        value={input.name}
+                        name="name"
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+                <div>
+                    <label>Nickname:</label>
+                    <input
+                        type="text"
+                        value={input.nickname}
+                        name="nickname"
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+                <div>
+                    <label>Cumpleaños:</label>
+                    <input
+                        type="text"
+                        value={input.birthday}
+                        name="birthday"
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+                <div>
+                    <label>Imagen:</label>
+                    <input
+                        type="text"
+                        value={input.img}
+                        name="img"
+                        onChange={(e) => handleChange(e)}
+                    />  
+                </div>
+                <label>Status: </label>
+                <label>
+                    <input
+                       type="checkbox"
+                       name="Alive"
+                       value="Alive"
+                       onChange={(e) => handleCheck(e)}
+                    />
+                    Alive
+                </label>
+                <label>
+                    <input
+                       type="checkbox"
+                       name="Deceased"
+                       value="Deceased"
+                       onChange={(e) => handleCheck(e)}
+                    />
+                    Muerto
+                </label>
+                <label>
+                    <input
+                       type="checkbox"
+                       name="Unknown"
+                       value="Unknown"
+                       onChange={(e) => handleCheck(e)}
+                    />
+                    Desconocido
+                </label>
+                <select onChange={(e) => handleSelect(e)}>
+                    {
+                        occupations.map((occ) =>(
+                            <option value={occ.name}> { occ.name} </option>
+                        ))
+                    }
+                </select>
+                <ul><li>{ input.occupation.map(el => el + ",") }</li></ul>
+                <button type='submit'>Crear personaje</button>            
+            </form>
+            
+        </div>
+    )
+}
+
+
+
+
+
+
+/* import React from "react";
+import { Link} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { postCharacter, getOccupations } from "../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 
+//Validación del form
+function validate(input){
+    let errors = {};
+    if(!input.name){
+        errors.name = 'Se requiere un Nombre'
+    }
+    else if (!input.nickname){
+        errors.nickname = 'Nickname debe ser completado';
+    }
+    return errors;
+};
+
+
 export default function CharacterCreate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const occupations = useSelector((state) => state.occupations); // me traigo las ocupaciones
+  const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
     name: "",
@@ -24,6 +190,11 @@ export default function CharacterCreate() {
         ...input,  //traigo todo lo que ya tenia
         [e.target.name] : e.target.value   //seteo mi value por el name con el value
     })
+    setErrors(validate({
+        ...input,
+        [e.target.name] : e.target.value
+    }));
+    console.log(input)
   }
 
   //manejo de checkboxs
@@ -57,10 +228,16 @@ export default function CharacterCreate() {
       navigate('/home'); // <---- Me lleva al home una vez creado el personaje
   }
   
+  function handleDelete(el){
+      setInput({
+          ...input,
+          occupation: input.occupation.filter( occ => occ !== el)
+      })
+  }
 
-  useEffect(() => {
+  useEffect((c) => {
     dispatch(getOccupations());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -68,25 +245,29 @@ export default function CharacterCreate() {
         <button>Volver</button>
       </Link>
       <h1>Creá tu personaje</h1>
-      <form action="" onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label htmlFor="">Nombre:</label>
-          <input type="text" value={input.name} name="name" onChange={(e) => handleChange(e)} />
+          <label>Nombre:</label>
+          <input type="text" value={input.name} name="name" onChange={(e) => handleChange(e)} />{ errors.name && (
+              <p className="error">{errors.name}</p>
+          )}
         </div>
         <div>
-          <label htmlFor="">Nickname:</label>
-          <input type="text" value={input.nickname} name="nickname" onChange={(e) => handleChange(e)}/>
+          <label>Nickname:</label>
+          <input type="text" value={input.nickname} name="nickname" onChange={(e) => handleChange(e)}/>{ errors.nickname && (
+              <p className="error">{errors.nickname}</p>
+          )}
         </div>
         <div>
-          <label htmlFor="">Cumpleaños:</label>
+          <label>Cumpleaños:</label>
           <input type="text" value={input.birthday} name="birthday" onChange={(e) => handleChange(e)}/>
         </div>
         <div>
-          <label htmlFor="">Imagen:</label>
+          <label>Imagen:</label>
           <input type="text" value={input.image} name="image" onChange={(e) => handleChange(e)} />
         </div>
         <div>
-          <label htmlFor="">Estado:</label>
+          <label>Estado:</label>
           <label>
           <input type="checkbox" value="Alive" name="Alive" onChange={(e) => handleCheck(e)} />
           Vivo</label>
@@ -102,14 +283,21 @@ export default function CharacterCreate() {
         </div>
         <select onChange={(e) => handleSelect(e)}>
             {occupations.map((occ) =>(
-                <option value={occ.name}>{occ.name}</option>
+                <option value={occ.name} key={occ.id}>{occ.name}</option>
             ))}
         </select>
-        <ul>
-            <li>{input.occupation.map(el => el + ", ")}</li> {/* lista que muestra lo que se va seleccionando */}
-        </ul>
+        <br />
         <button type="submit">Crear Personaje</button>
+
       </form>
+     <div>
+     {input.occupation.map(el => 
+            <div className="divOcc" key={el.id}>
+                <p key={el.id}>{el}</p>
+                <button className="botonX" onClick={() => handleDelete(el)}>x</button>
+            </div>)}
+     </div>
+        
     </div>
   );
-}
+} */

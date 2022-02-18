@@ -14,6 +14,8 @@ function App() {
         <Route path='/home' element={ <Home/> }/>
         <Route path='/character' element={ <CharacterCreate/>} />
         <Route path='/home/:id' element={ <Detail/> } />
+        {/* <Route path='/home/*' element={ <PageError/> } /> */}
+        {/* <Route path='*' element={ <PageError/> } /> */}
       </Routes>
     </div>
     </BrowserRouter>
