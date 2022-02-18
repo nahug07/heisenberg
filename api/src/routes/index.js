@@ -93,9 +93,9 @@ router.get("/occupations", async (req, res) => {
 router.post('/character', async(req, res) => {
     let {
         name,
-        nickName,
+        nickname,
         birthday,
-        image,
+        img,
         status,
         createdInDb,
         occupation
@@ -103,20 +103,20 @@ router.post('/character', async(req, res) => {
 
     const createdCharacter = await Character.create({
         name,
-        nickName,
+        nickname,
         birthday,
-        image,
+        img,
         status,
         createdInDb
     })
 
-    const createdDb = await Occupation.findAll({
+    const occupationDb = await Occupation.findAll({
         where: {
             name: occupation
         }
     })
-    createdCharacter.addOccupation(createdDb)
-    return res.status(200).send('Personaje creado con éxito')
+    createdCharacter.addOccupation(occupationDb)
+    return res.send('Personaje creado con éxito')
 });
 
 //BUSCAR PERSONAJE POR ID

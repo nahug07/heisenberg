@@ -28,12 +28,12 @@ module.exports = (sequelize) => {
 
     status: {
       type: DataTypes.ENUM('Alive', 'Deceased', 'Presumed dead', 'Unknown'), //datatypes de enumeración (solo pueden ser esos cuatro) 
-      allowNull: true,
+      allowNull: false,
     },
 
-    image: {
+    img: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
 
     createdInDb: {
