@@ -63,7 +63,7 @@ router.get("/characters", async (req, res) => {
     ); // me fijo en cada elemento si incluye el name que le pase por query
     characterName.length //pregunto si encontro algo
       ? res.status(200).send(characterName)
-      : res.status(404).send("No se encontró el personaje");
+      : res.status(404).send('No se encontró el personaje');
   } else {
     res.status(200).send(charactersTotal); // si no hay nada en query, mando todos
   }
@@ -71,12 +71,12 @@ router.get("/characters", async (req, res) => {
 
 
 //BUSCAR OCUPACIONES
-router.get("/occupations", async (req, res) => {
-  const occupationsApi = await axios.get(
+router.get("/occupation", async (req, res) => {
+  const occupationApi = await axios.get(
     "https://breakingbadapi.com/api/characters"
   );
-  const occupations = occupationsApi.data.map((el) => el.occupation);
-  const occEach = occupations.map((el) => {
+  const occupation = occupationApi.data.map((el) => el.occupation);
+  const occEach = occupation.map((el) => {
     for (let i = 0; i < el.length; i++) return el[i];
   }); //devulevo cada elemento de cada arreglo
   occEach.forEach((el) => {
@@ -85,8 +85,8 @@ router.get("/occupations", async (req, res) => {
       where: { name: el },
     });
   });
-  const allOccupations = await Occupation.findAll();
-  res.send(allOccupations);
+  const allOccupation = await Occupation.findAll();
+  res.send(allOccupation);
 });
 
 //CREACIÓN DE PERSONAJE

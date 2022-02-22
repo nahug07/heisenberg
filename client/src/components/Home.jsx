@@ -7,6 +7,8 @@ import Card from "./Card";
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
 
+
+
 export default function Home() {
   const dispatch = useDispatch();
   const allCharacters = useSelector((state) => state.characters);
@@ -56,7 +58,6 @@ export default function Home() {
 
   return (
     <div>
-      <Link to="/character"> Crear personaje </Link>
       <h1>BREAKING BAD</h1>
       <button
         onClick={(e) => {
@@ -65,6 +66,7 @@ export default function Home() {
       >
         Cargar todos los personajes
       </button>
+      <Link to="/character"> Crear personaje </Link>
       <div>
         <select onChange={e => handleSort(e)}>
           <option value="asc">Ascendente</option>
@@ -82,12 +84,8 @@ export default function Home() {
           <option value="created">Creados</option>
           <option value="api">Existente</option>
         </select>
-        <Paginado
-          characterPerPage={charactersPerPage}
-          allCharacters={allCharacters.length}
-          paginado={paginado}
-        />
         <SearchBar/>
+        <div>
         {currentCharacters?.map((el) => {
           return (
             <div key={el.name}>
@@ -102,6 +100,12 @@ export default function Home() {
             </div>
           );
         })}
+        </div>
+        <Paginado
+          characterPerPage={charactersPerPage}
+          allCharacters={allCharacters.length}
+          paginado={paginado}
+        />
       </div>
     </div>
   );

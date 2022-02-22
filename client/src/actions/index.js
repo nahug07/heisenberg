@@ -48,11 +48,11 @@ export function getNameCharacters(name) {
   };
 }
 
-export function getOccupations() {
+export function getOccupation() {
   return async function (dispatch) {
-    var info = await axios.get("http://localhost:3001/occupations", {});
+    var info = await axios.get("http://localhost:3001/occupation", {});
     return dispatch({
-      type: "GET_OCCUPATIONS",
+      type: "GET_OCCUPATION",
       payload: info.data,
     });
   };

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getOccupations, postCharacter } from "../actions"; 
+import { getOccupation, postCharacter } from "../actions"; 
 import { useDispatch, useSelector } from "react-redux";
 
 
 export default function CharacterCreate(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const occupations = useSelector((state) => state.occupations)
+    const occupation = useSelector((state) => state.occupation)
 
     const [input, setInput] = useState({
         name: "",
@@ -18,7 +18,7 @@ export default function CharacterCreate(){
         occupation: []
     })
     useEffect((c) => {
-        dispatch(getOccupations())
+        dispatch(getOccupation())
     }, [dispatch])
 
     function handleChange (e){
@@ -102,37 +102,24 @@ export default function CharacterCreate(){
                         onChange={(e) => handleChange(e)}
                     />  
                 </div>
-                <label>Status: </label>
-                <label>
-                    <input
-                       type="checkbox"
-                       name="Alive"
-                       value="Alive"
-                       onChange={(e) => handleCheck(e)}
-                    />
-                    Alive
-                </label>
-                <label>
-                    <input
-                       type="checkbox"
-                       name="Deceased"
-                       value="Deceased"
-                       onChange={(e) => handleCheck(e)}
-                    />
-                    Muerto
-                </label>
-                <label>
-                    <input
-                       type="checkbox"
-                       name="Unknown"
-                       value="Unknown"
-                       onChange={(e) => handleCheck(e)}
-                    />
-                    Desconocido
-                </label>
+                <div>
+          <label>Estado:</label>
+          <label>
+          <input type="checkbox" value="Alive" name="Alive" onChange={(e) => handleCheck(e)} />
+          Vivo</label>
+          <label>
+          <input type="checkbox" value="Deceased" name="Deceased" onChange={(e) => handleCheck(e)} />
+          Muerto</label>
+          <label>
+          <input type="checkbox" value="Unknown" name="Unknown" onChange={(e) => handleCheck(e)} />
+          Desconocido</label>
+          <label>
+          <input type="checkbox" value="Presumed dead" name="Presumed dead" onChange={(e) => handleCheck(e)} />
+          Presuntamente Muerto</label>
+        </div>
                 <select onChange={(e) => handleSelect(e)}>
                     {
-                        occupations.map((occ) =>(
+                        occupation.map((occ) =>(
                             <option value={occ.name}> { occ.name} </option>
                         ))
                     }
