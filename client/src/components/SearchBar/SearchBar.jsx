@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getNameCharacters } from "../actions";
+import { getNameCharacters } from "../../actions";
+import stl from "./SearchBar.module.css"
 
 export default function SearchBar() {
     const dispatch = useDispatch()
@@ -21,13 +22,13 @@ export default function SearchBar() {
 
 
     return (
-        <div>
-            <input 
+        <div className={stl.sbcontainer}>
+            <input className={stl.sbinput}
             type="text"
             placeholder="Buscar personaje.."
             onChange={(e) => HandleInputChange(e)}
             />
-            <button type="submit" onClick={(e) => handleSubmit(e)}>Buscar</button>
+            <button className={stl.sbbot} type="submit" onClick={(e) => handleSubmit(e)}>Buscar</button>
         </div>
     )
 }

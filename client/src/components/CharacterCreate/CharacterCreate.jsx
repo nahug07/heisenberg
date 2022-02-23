@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getOccupation, postCharacter } from "../actions"; 
+import { getOccupation, postCharacter } from "../../actions"; 
 import { useDispatch, useSelector } from "react-redux";
 
 

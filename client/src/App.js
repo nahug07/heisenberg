@@ -1,9 +1,9 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import Home from './components/Home';
-import CharacterCreate from './components/CharacterCreate';
-import Detail from './components/Detail';
+import LandingPage from './components/LandingPage/LandingPage';
+import Home from './components/Home/Home';
+import CharacterCreate from './components/CharacterCreate/CharacterCreate';
+import Detail from './components/Detail/Detail';
 
 function App() {
   return (
