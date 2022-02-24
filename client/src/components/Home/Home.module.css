@@ -55,26 +55,63 @@
   
   
   
-  .hpbot {
+  .hpbot1 {
     background-color:darkslategrey;
     color: whitesmoke;
     padding-top: 1px;
     cursor: pointer;
     text-align: center;
-    padding: 8px 24px;
-    border-radius: 8px;
-    transition-duration: 0.4s;
     height: 60px;
+    padding: 12px 26px;
+    transition-duration: 0.4s;
+    border-radius: 25px 0 0 25px ;
   }
-  .hpbot:hover {
+  .hpbot2 {
+    background-color:darkslategrey;
+    color: whitesmoke;
+    padding-top: 1px;
+    cursor: pointer;
+    text-align: center;
+    height: 60px;
+    padding: 12px 26px;
+    transition-duration: 0.4s;
+    border-radius: 0 25px 25px 0;
+  }
+
+  .hpbot1:hover, .hpbot2:hover {
     background-color:olive;
     color: black; 
   }
   
-  .hpfilter{
-    margin-top: 8px;
+  .hpfilter1{
+   
     border: 2px solid black;
-    height: 40px;
+    height: 60px;
     background-color: wheat;
     cursor:grab;
+    border-radius:  25px 0 0 25px ;
+    text-align: center;
+  }
+
+  .hpfilter2{
+    
+    border: 2px solid black;
+    height: 60px;
+    background-color: wheat;
+    cursor:grab;
+    
+  }
+
+  .hpfilter3{
+    text-align: center;
+    
+    border: 2px solid black;
+    height: 60px;
+    background-color: wheat;
+    cursor:grab;
+    border-radius: 0 25px 25px 0;
+  }
+
+  .hpfilter1:hover, .hpfilter2:hover, .hpfilter3:hover{
+    background-color: olive;
   }

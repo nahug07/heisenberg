@@ -1,0 +1,22 @@
+.form {
+    background-color: rgb(231, 81, 81);
+    height: 80vh;
+    width: 40vw;
+    align-self: center;
+    margin: auto;
+}
+
+label {
+    font-size: 30px;
+    padding-right: 20px;
+}
+
+input {
+        border: none;
+        background-color: #fff;
+        width: 340px;
+        height: 43px;
+        outline: none;
+        padding: 0 25px;
+        border-radius: 25px 25px;
+    }

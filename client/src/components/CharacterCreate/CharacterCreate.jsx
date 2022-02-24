@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getOccupation, postCharacter } from "../../actions"; 
 import { useDispatch, useSelector } from "react-redux";
+import slt from "./CharacterCreate.module.css"
 
 
 export default function CharacterCreate(){
@@ -63,11 +64,11 @@ export default function CharacterCreate(){
 
     return(
         <div>
-            <Link to='/home'><button>Volver</button></Link>
-            <h1>Crea tu personaje!</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            
+            <h1>Crear personaje</h1>
+            <form className={slt.form} onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <label>Nombre:</label>
+                    <label>Nombre</label>
                     <input
                         type="text"
                         value={input.name}
@@ -76,7 +77,7 @@ export default function CharacterCreate(){
                     />
                 </div>
                 <div>
-                    <label>Nickname:</label>
+                    <label>Nickname</label>
                     <input
                         type="text"
                         value={input.nickname}
@@ -85,7 +86,7 @@ export default function CharacterCreate(){
                     />
                 </div>
                 <div>
-                    <label>Cumpleaños:</label>
+                    <label>Cumpleaños</label>
                     <input
                         type="text"
                         value={input.birthday}
@@ -94,7 +95,7 @@ export default function CharacterCreate(){
                     />
                 </div>
                 <div>
-                    <label>Imagen:</label>
+                    <label>Imagen</label>
                     <input
                         type="text"
                         value={input.img}
@@ -103,7 +104,7 @@ export default function CharacterCreate(){
                     />  
                 </div>
                 <div>
-          <label>Estado:</label>
+          <label>Estado</label>
           <label>
           <input type="checkbox" value="Alive" name="Alive" onChange={(e) => handleCheck(e)} />
           Vivo</label>
@@ -127,7 +128,7 @@ export default function CharacterCreate(){
                 <ul><li>{ input.occupation.map(el => el + ",") }</li></ul>
                 <button type='submit'>Crear personaje</button>            
             </form>
-            
+            <Link to='/home'><button>Volver</button></Link>
         </div>
     )
 }

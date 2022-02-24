@@ -22,7 +22,7 @@ export default function SearchBar() {
 
 
     return (
-        <div className={stl.sbcontainer}>
+        <div className={stl.searchBox}>
             <input className={stl.sbinput}
             type="text"
             placeholder="Buscar personaje.."

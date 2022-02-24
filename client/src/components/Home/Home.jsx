@@ -62,7 +62,7 @@ export default function Home() {
     <div className={stl.conteinerMain}>
       <div className={stl.c2}>
         <div>
-          <button className={stl.hpbot}
+          <button className={stl.hpbot1}
             onClick={(e) => {
               handleClick(e);
             }}
@@ -71,20 +71,20 @@ export default function Home() {
           </button>
         </div>
         <div>
-          <Link to="/character"> <button className={stl.hpbot}>Crear personaje</button></Link>
+          <Link to="/character"> <button className={stl.hpbot2}>Crear personaje</button></Link>
         </div>
         <div>
           <SearchBar />
         </div>
         <div>
-            <select className={stl.hpfilter} onChange={(e) => handleSort(e)}>
+            <select className={stl.hpfilter1} onChange={(e) => handleSort(e)}>
               <option value="asc">Ascendente</option>
               <option value="desc">Descendente</option>
             </select>
         </div>
         <div>
             <select
-              className={stl.hpfilter}
+              className={stl.hpfilter2}
               onChange={(e) => handleFilterStatus(e)}
             >
               <option value="All">Todos</option>
@@ -96,7 +96,7 @@ export default function Home() {
         </div>
         <div>
             <select
-              className={stl.hpfilter}
+              className={stl.hpfilter3}
               onChange={(e) => handleFilterCreated(e)}
             >
               <option value="All">Todos</option>

@@ -1,0 +1,25 @@
+.conteinerLanding{
+  background-image: url("../../img/111.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
+
+.buttonLanding {
+    background-color:darkslategrey;
+    color: whitesmoke;
+    padding-top: 1px;
+    cursor: pointer;
+    text-align: center;
+    height: 60px;
+    margin-top: 120px;
+    padding: 12px 26px;
+    transition-duration: 0.4s;
+    border-radius: 25px 25px;
+  }
+
+  .buttonLanding:hover{
+    background-color:olive;
+    color: black; 
+  }
